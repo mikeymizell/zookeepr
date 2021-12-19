@@ -2,9 +2,10 @@ const { animals } = require('./data/animals');
 const express = require('express');
 
 const app = express();
+const PORT = process.env.PORT || 3001;
 
-app.listen(3001, () => {
-    console.log(`API server onw on port 3001!`);
+app.listen(PORT, () => {
+    console.log(`API server onw on port ${PORT}!`);
 })
 
 app.get('/api/animals', (req, res) => {
@@ -20,7 +21,7 @@ app.get('/api/animals', (req, res) => {
 function filterByQuery(query, animalsArray) {
     let personalityTraitsArray = [];
 
-    //Note that we save the animalsArray as filteredResults here':
+    //Note that we save the animalsArray as filteredResults here:
     let filteredResults = animalsArray;
 
     if (query.personalityTraits) {
@@ -30,7 +31,7 @@ function filterByQuery(query, animalsArray) {
         else {
             personalityTraitsArray = query.personalityTraits;
         }
-        
+
         personalityTraitsArray.forEach(trait => {
             filteredResults = filteredResults.filter(
                 animal => animal.personalityTraits.indexOf(trait) !== -1
