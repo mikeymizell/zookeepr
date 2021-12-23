@@ -4,8 +4,22 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.listen(PORT, () => {
-    console.log(`API server onw on port ${PORT}!`);
+app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+})
+
+app.get('/animals', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/animals.html'));
+})
+
+app.get('./zookeepers', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/zookeepers.html'));
+})
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
 })
 
 function filterByQuery(query, animalsArray) {
@@ -70,3 +84,6 @@ app.get('/api/animals/:id', (req, res) => {
     };
 })
 
+app.listen(PORT, () => {
+    console.log(`API server on port ${PORT}`);
+})
